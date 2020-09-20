@@ -1,7 +1,7 @@
 from django.conf.urls import url
-from .views import HelloWorld, HelloWorldTwo
+from .views import UserSignUpAPIView, GetUserListView
 
 urlpatterns = [
-    url('our_first_api', HelloWorld.as_view()),
-    url('our_second_api', HelloWorldTwo.as_view()),
+    url('signup', UserSignUpAPIView.as_view()),
+    url('getUserList', GetUserListView.as_view())
 ]
