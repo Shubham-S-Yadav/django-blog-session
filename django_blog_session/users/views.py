@@ -1,3 +1,4 @@
+from rest_framework import status
 from rest_framework.generics import (GenericAPIView,
                                      CreateAPIView,
                                      ListAPIView)
@@ -26,9 +27,9 @@ class UserSignUpAPIView(CreateAPIView):
                 "email": obj.email,
                 "username": obj.username
             }
-            return Response(response_data)
+            return Response(response_data, status.HTTP_201_CREATED)
         else:
-            return Response(serializer.errors)
+            return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
 
 
 class GetUserListView(ListAPIView):
@@ -40,7 +41,7 @@ class GetUserListView(ListAPIView):
     def get(self, request, *args, **kwargs):
         serializer = super().list(request, *args, **kwargs)
         print("SERIALIZER", serializer.data)
-        return Response(serializer.data)
+        return Response(serializer.data, status.HTTP_200_OK)
 
 
 class UserLoginAPIView(GenericAPIView):
@@ -62,4 +63,4 @@ class UserLoginAPIView(GenericAPIView):
             }
             return Response(response_data)
         else:
-            return Response(serializer.errors)
+            return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
