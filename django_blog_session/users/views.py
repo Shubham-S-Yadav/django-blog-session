@@ -1,5 +1,6 @@
 from rest_framework import status
 from rest_framework.generics import (GenericAPIView,
+                                     DestroyAPIView,
                                      CreateAPIView,
                                      ListAPIView)
 from rest_framework.response import Response
@@ -64,3 +65,11 @@ class UserLoginAPIView(GenericAPIView):
             return Response(response_data)
         else:
             return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
+
+
+class DeleteUserView(DestroyAPIView):
+
+    def delete(self, request, *args, **kwargs):
+        user_id = self.kwargs["pk"]
+        User.objects.filter(id=user_id).delete()
+        return Response(status.HTTP_204_NO_CONTENT)
