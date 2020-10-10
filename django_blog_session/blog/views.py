@@ -115,6 +115,7 @@ class UpdateBlogStatusAPIView(UpdateAPIView):
 
 class GetBlogDetailsAPIView(ListAPIView):
     serializer_class = BlogSerializer
+
     def get(self, request, *args, **kwargs):
         data = list()
         blog_id = self.kwargs["pk"]
